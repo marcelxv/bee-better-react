@@ -1,25 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import HomePage from "./pages/HomePage";
+import UserCollectForm from "./components/UserCollectForm";
+import ActivityPage from "./pages/ActivityPage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/activity/reciclagem"
+          element={<ActivityPage pageType="reciclagem" step="setCEP" />}
+        />
+        <Route path="*" element={<h1>404</h1>} />
+        <Route
+          path="/activity/reciclagem/selecao"
+          element={<ActivityPage pageType="reciclagem" step="selecao" />}
+        />
+        <Route
+          path="/activity/reciclagem/formulario"
+          element={<ActivityPage pageType="reciclagem" step="formulario" />}
+        />
+        <Route
+          path="/activity/reciclagem/checkout"
+          element={<ActivityPage pageType="reciclagem" step="checkout" />}
+        />
+        <Route
+          path="/activity/reciclagem/confirmacao"
+          element={<ActivityPage pageType="reciclagem" step="confirmacao" />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
