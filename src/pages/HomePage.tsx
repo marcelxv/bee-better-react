@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Logo from "../images/logo-beebetter.svg";
 
 export default function HomePage() {
   const containerStyle = {
     backgroundColor: "#FFC62A",
-    height: "100vh",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -66,6 +66,7 @@ export default function HomePage() {
 
   return (
     <div style={containerStyle as React.CSSProperties}>
+      <img src={Logo} alt="logo beebetter" style={{ width: "100px" }} />
       <div>
         <h1>olá, {user.name}!</h1>
         <p>escolha uma atividade para começar a ganhar beecoins!</p>
