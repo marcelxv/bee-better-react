@@ -1,7 +1,7 @@
-import HomePage from "./pages/HomePage";
-import ActivityPage from "./pages/ActivityPage";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import HomePage from './pages/HomePage';
+import ActivityPage from './pages/ActivityPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
           path="/activity/reciclagem"
           element={<ActivityPage pageType="reciclagem" step="setCEP" />}
         />
-        <Route path="*" element={<h1>404</h1>} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route
           path="/activity/reciclagem/selecao"
           element={<ActivityPage pageType="reciclagem" step="selecao" />}
