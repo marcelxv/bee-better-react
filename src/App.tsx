@@ -1,5 +1,4 @@
 import HomePage from "./pages/HomePage";
-import UserCollectForm from "./components/UserCollectForm";
 import ActivityPage from "./pages/ActivityPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 

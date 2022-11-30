@@ -1,7 +1,21 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function UserCollectForm({ step }: { step: string }) {
+export default function UserCollectForm({
+  step,
+  points,
+  setPoints,
+}: {
+  step: string;
+  points: number | undefined;
+  setPoints: any;
+}) {
+  const collectPointContainerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    width: "100%",
+  };
   const garbageBagContainerStyle = {
     display: "flex",
     flexDirection: "row",
@@ -10,6 +24,29 @@ export default function UserCollectForm({ step }: { step: string }) {
     justifyContent: "center",
     width: "100%",
     height: "100%",
+  };
+
+  const summaryTableStyle = {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    width: "200px",
+  };
+
+  const summaryTableRowStyle = {
+    border: "1px solid black",
+    width: "100%",
+    height: "100%",
+    margin: "1px",
+  };
+
+  const totalTableStyle = {
+    backgroundColor: "lightgrey",
+    width: "100%",
+    height: "100%",
+    margin: "1px",
   };
 
   const garbageBagCardStyle = {
@@ -23,6 +60,16 @@ export default function UserCollectForm({ step }: { step: string }) {
     backgroundColor: "#F5F5F5",
     borderRadius: "10px",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+  };
+
+  const formInputStyle = {
+    width: "50px",
+    height: "40px",
+    margin: "10px",
+    padding: "0 0.4em",
+    border: "none",
+    borderRadius: "10px",
+    backgroundColor: "#F5F5F5",
   };
 
   const [CEP, setCEP] = useState("");
@@ -96,13 +143,21 @@ export default function UserCollectForm({ step }: { step: string }) {
     },
   ]);
 
+  const [totalWeight, setTotalWeight] = useState(0);
+
   const collectPointStyle = {
-    width: "100%",
     height: "100px",
-    padding: "2rem 2rem",
+    padding: "10px",
     backgroundColor: "#fff",
     fontSize: "0.7rem",
     cursor: "pointer",
+    borderRadius: "10px",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    margin: "10px",
+  };
+
+  const handlePoints = () => {
+    setPoints(points as any + totalWeight);
   };
 
   const handleSelectCollectPoint = (collectPoint: any) => {
@@ -122,12 +177,28 @@ export default function UserCollectForm({ step }: { step: string }) {
     setGarbageBags(garbageBags);
   };
 
+  const handleGarbageBagType = (e: any, bagId: number) => {
+    const garbageBagsCopy = [...garbageBags];
+    garbageBagsCopy[bagId].bagType = e.target.value;
+    setGarbageBags(garbageBagsCopy);
+  };
+
+  const handleGarbageBagWeight = (e: any, bagId: number) => {
+    const garbageBagsCopy = [...garbageBags];
+    garbageBagsCopy[bagId].bagWeight = e.target.value;
+    setGarbageBags(garbageBagsCopy);
+    setTotalWeight(
+      garbageBagsCopy.reduce((acc, bag) => acc + +bag.bagWeight, 0)
+    );
+  };
+
   return (
     <div>
       {step === "setCEP" && (
-        <div>
+        <div style={collectPointContainerStyle as React.CSSProperties}>
           <h1>Qual o seu CEP?</h1>
           <input
+            aria-label="CEP"
             type="text"
             value={CEP}
             onChange={(e) => setCEP(e.target.value)}
@@ -138,18 +209,21 @@ export default function UserCollectForm({ step }: { step: string }) {
         </div>
       )}
       {step === "selecao" && (
-        <div style={collectPointStyle as React.CSSProperties}>
+        <div style={collectPointContainerStyle as React.CSSProperties}>
           <h1>Selecione o posto de coleta mais próximo</h1>
           <h3>{selectedCollectPoint ? selectedCollectPoint.name : ""}</h3>
-          {collectPoints.map((collectPoint) => (
-            <div
-              key={collectPoint.id}
-              onClick={() => handleSelectCollectPoint(collectPoint)}
-            >
-              <h2>{collectPoint.name}</h2>
-              <p>{collectPoint.address}</p>
-            </div>
-          ))}
+          <div style={collectPointContainerStyle as React.CSSProperties}>
+            {collectPoints.map((collectPoint) => (
+              <div
+                key={collectPoint.id}
+                onClick={() => handleSelectCollectPoint(collectPoint)}
+                style={collectPointStyle as React.CSSProperties}
+              >
+                <h2>{collectPoint.name}</h2>
+                <p>{collectPoint.address}</p>
+              </div>
+            ))}
+          </div>
           <Link to="/activity/reciclagem/formulario">
             <button>Próximo</button>
           </Link>
@@ -170,6 +244,7 @@ export default function UserCollectForm({ step }: { step: string }) {
             <div>
               <h4>Sacos</h4>
               <input
+                style={formInputStyle as React.CSSProperties}
                 type="text"
                 title="sacos"
                 value={bagCounter}
@@ -196,11 +271,13 @@ export default function UserCollectForm({ step }: { step: string }) {
                 <div>
                   <h5>Tipo</h5>
                   <select
+                    title="tipo"
                     name="bagType"
                     id="bagType"
                     value={garbageBag.bagType}
-                    onChange={() => console.warn("change")}
+                    onChange={(e) => handleGarbageBagType(e, garbageBag.id)}
                   >
+                    <option value="">Selecione</option>
                     <option value="papel">Papel</option>
                     <option value="plastico">Plástico</option>
                     <option value="vidro">Vidro</option>
@@ -211,16 +288,65 @@ export default function UserCollectForm({ step }: { step: string }) {
                 <div>
                   <h5>Peso</h5>
                   <input
-                    type="text"
+                    style={formInputStyle as React.CSSProperties}
+                    type="texto"
                     title="peso"
                     value={garbageBag.bagWeight}
-                    onChange={() => console.warn("change")}
+                    onChange={(e) => {
+                      handleGarbageBagWeight(e, garbageBag.id);
+                    }}
                   />
+                  <span>kgs</span>
                 </div>
               </div>
             ))}
           </div>
-          <div></div>
+          <Link to="/activity/reciclagem/checkout">
+            <button>Próximo</button>
+          </Link>
+        </div>
+      )}
+      {step === "checkout" && (
+        <div>
+          <h1>Confirmação</h1>
+          <h3>{selectedCollectPoint.name}</h3>
+          <span>{selectedCollectPoint.address}</span>
+          <span>{selectedCollectPoint.city}</span>
+          <div>
+            <h3>Quantidade de lixo</h3>
+            <div>
+              <span>{bagCounter} sacos</span>
+              <table style={summaryTableStyle as React.CSSProperties}>
+                {garbageBags.map((garbageBag) => (
+                  <tr
+                    key={garbageBag.id}
+                    style={summaryTableRowStyle as React.CSSProperties}
+                  >
+                    <td>{garbageBag.bagType}</td>
+                    <td>{garbageBag.bagWeight} kgs</td>
+                  </tr>
+                ))}
+                <td style={totalTableStyle as React.CSSProperties}>
+                  Total {totalWeight} kgs
+                </td>
+              </table>
+              <Link to="/activity/reciclagem/confirmacao">
+                <button>Próximo</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+      {step === "confirmacao" && (
+        <div>
+          <h1>Confirmação</h1>
+          <p>
+            Agora é só aguardar a confirmação do Ponto de Coleta para receber
+            seus pontos!
+          </p>
+          <Link to="/activity/reciclagem">
+            <button onClick={handlePoints}>Confirmar</button>
+          </Link>
         </div>
       )}
     </div>
