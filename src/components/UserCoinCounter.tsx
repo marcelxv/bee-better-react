@@ -1,25 +1,25 @@
-import { useState } from "react";
+import { useToast, Button } from '@chakra-ui/react';
+import { stringify } from 'querystring';
+import { useLocation } from 'react-router-dom';
 
 export default function UserCoinCounter({ points }: { points: number }) {
-
-  const beeCoinsDebtStyle = {
-    position: "fixed",
-    bottom: "0",
-    right: "0",
-    padding: "1rem",
-    width: "80px",
-    backgroundColor: "#FFC62A",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-    
-  };
+  const toast = useToast();
 
   return (
-    <div>
-      <div style={beeCoinsDebtStyle as React.CSSProperties}>
-        Seu saldo é de: {points} beecoins
-      </div>
+    <div style={{ position: 'fixed', bottom: '0', right: '0', margin: '1rem' }}>
+      <Button
+        onClick={() =>
+          toast({
+            title: 'Seu saldo de beecoins',
+            description: `Você tem ${points} beecoins`,
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          })
+        }
+      >
+        {useLocation().pathname === '/' ? `Saldo: ${ points }` : 'Ver saldo'}
+      </Button>
     </div>
   );
 }

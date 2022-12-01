@@ -1,5 +1,34 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import {
+  Badge,
+  Box,
+  Button,
+  Input,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Select,
+  Card,
+  CardBody,
+  CardFooter,
+  SimpleGrid,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  Table,
+  Thead,
+  Tbody,
+  Heading,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Text,
+} from '@chakra-ui/react';
 
 export default function UserCollectForm({
   step,
@@ -10,108 +39,59 @@ export default function UserCollectForm({
   points: number | undefined;
   setPoints: any;
 }) {
-  const collectPointContainerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: '100%',
-  };
-  const garbageBagContainerStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-  };
-
-  const summaryTableStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    width: '200px',
-  };
-
-  const summaryTableRowStyle = {
-    border: '1px solid black',
-    width: '100%',
-    height: '100%',
-    margin: '1px',
-  };
-
-  const totalTableStyle = {
-    backgroundColor: 'lightgrey',
-    width: '100%',
-    height: '100%',
-    margin: '1px',
-  };
-
-  const formInputStyle = {
-    width: '50px',
-    height: '40px',
-    margin: '10px',
-    padding: '0 0.4em',
-    border: 'none',
-    borderRadius: '10px',
-    backgroundColor: '#F5F5F5',
-  };
-
   const [CEP, setCEP] = useState('');
   const [collectPoints, setCollectPoints] = useState([
     {
       id: 1,
-      name: 'Ponto de Coleta 1',
-      address: 'Rua 1, 123',
-      city: 'São Paulo',
+      name: 'ponto de coleta 1',
+      address: 'rua 1, 123',
+      city: 'são paulo',
       state: 'SP',
       CEP: '12345-678',
     },
     {
       id: 2,
-      name: 'Ponto de Coleta 2',
-      address: 'Rua 2, 456',
-      city: 'São Paulo',
+      name: 'ponto de coleta 2',
+      address: 'rua 2, 456',
+      city: 'são paulo',
       state: 'SP',
       CEP: '12345-678',
     },
     {
       id: 3,
-      name: 'Ponto de Coleta 2',
-      address: 'Rua 2, 456',
-      city: 'São Paulo',
+      name: 'ponto de coleta 2',
+      address: 'rua 2, 456',
+      city: 'são paulo',
       state: 'SP',
       CEP: '12345-678',
     },
     {
       id: 8,
-      name: 'Ecoloja',
-      address: 'Rua 2, 456',
-      city: 'São Paulo',
+      name: 'ecoloja pinheiros',
+      address: 'rua 2, 456',
+      city: 'são paulo',
       state: 'SP',
       CEP: '12345-678',
     },
     {
       id: 12,
-      name: 'Ecologia',
-      address: 'Rua 2, 456',
-      city: 'São Paulo',
+      name: 'echologia',
+      address: 'rua 2, 456',
+      city: 'são paulo',
       state: 'SP',
       CEP: '12345-678',
     },
     {
       id: 20,
-      name: 'Ponto de Coleta 44',
-      address: 'Rua 2, 456',
-      city: 'São Paulo',
+      name: 'ponto de coleta 44',
+      address: 'rua 2, 456',
+      city: 'são paulo',
       state: 'SP',
       CEP: '12345-678',
     },
   ]);
 
-  const [selectedCollectPoint, setSelectedCollectPoint] = useState({
+  const [selectedCollectPoint, setselectedCollectPoint] = useState({
     id: 0,
     name: '',
     address: '',
@@ -134,23 +114,33 @@ export default function UserCollectForm({
 
   const [totalWeight, setTotalWeight] = useState(0);
 
-  const collectPointStyle = {
-    height: '100px',
-    padding: '10px',
-    backgroundColor: '#fff',
-    fontSize: '0.7rem',
-    cursor: 'pointer',
-    borderRadius: '10px',
-    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-    margin: '10px',
-  };
-
   const handlePoints = () => {
+    const clearAllState = () => {
+      setCEP('');
+      setselectedCollectPoint({
+        id: 0,
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        CEP: '',
+      });
+      setBagCounter(1);
+      setGarbageBags([
+        {
+          id: 0 as number,
+          bagType: '' as string,
+          bagWeight: 0 as number,
+        },
+      ]);
+      setTotalWeight(0);
+    };
+    clearAllState();
     setPoints((points as any) + totalWeight);
   };
 
   const handleSelectCollectPoint = (collectPoint: any) => {
-    setSelectedCollectPoint(collectPoint);
+    setselectedCollectPoint(collectPoint);
   };
 
   const handleGarbageBags = (action: string) => {
@@ -164,7 +154,7 @@ export default function UserCollectForm({
           bagWeight: 0,
         },
       ]);
-    } else if (action === 'remove') {
+    } else if (action === 'remove' && garbageBags.length > 1) {
       setBagCounter(bagCounter ? bagCounter - 1 : 0);
       setGarbageBags(garbageBags.slice(0, garbageBags.length - 1));
     }
@@ -178,7 +168,7 @@ export default function UserCollectForm({
 
   const handleGarbageBagWeight = (e: any, bagId: number) => {
     const garbageBagsCopy = [...garbageBags];
-    garbageBagsCopy[bagId].bagWeight = e.target.value;
+    garbageBagsCopy[bagId].bagWeight = e as number;
     setGarbageBags(garbageBagsCopy);
     setTotalWeight(
       Math.round(
@@ -189,31 +179,22 @@ export default function UserCollectForm({
     );
   };
 
-  const handleGarbageCardStyle = (bagType: string) => {
-    const bagTypeStyle = {
-      backgroundColor: '#F5F5F5',
-      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-      borderRadius: '10px',
-      padding: '10px 30px',
-      margin: '10px',
-    };
-
+  const handleGarbageBagTypeColor = (bagType: string) => {
     switch (bagType) {
       case 'papel':
-        return {
-          ...bagTypeStyle,
-          backgroundColor: 'yellow',
-        };
+        return 'blue';
       case 'plastico':
-        return {
-          ...bagTypeStyle,
-          backgroundColor: 'blue',
-          color: 'white',
-        };
+        return 'red';
+      case 'vidro':
+        return 'green';
+      case 'metal':
+        return 'yellow';
+      case 'organico':
+        return 'maroon';
+      case 'não-reciclavel':
+        return 'gray';
       default:
-        return {
-          ...bagTypeStyle,
-        };
+        return 'orange';
     }
   };
 
@@ -225,81 +206,143 @@ export default function UserCollectForm({
   }, [garbageBags]);
 
   return (
-    <div>
+    <Box w="360px" h="100%" m="0 auto">
       {step === 'setCEP' && (
-        <div style={collectPointContainerStyle as React.CSSProperties}>
-          <h1>Qual o seu CEP?</h1>
-          <input
-            aria-label="CEP"
-            type="text"
-            value={CEP}
-            onChange={(e) => setCEP(e.target.value)}
-          />
-          <Link to="/activity/reciclagem/selecao">
-            <button>Próximo</button>
-          </Link>
-        </div>
+        <Card w="100%" h="100%" p="4">
+          <CardBody>
+            <Heading as="h1" size="lg" mt="4">
+              informe seu CEP
+            </Heading>
+            <Text mt="4">para encontrar pontos de coleta próximos a você</Text>
+            <Input
+              aria-label="CEP"
+              type="number"
+              value={CEP}
+              onChange={(e) => setCEP(e.target.value)}
+              mt="4"
+            />
+            <Link to="/activity/reciclagem/selecao">
+              <Button
+                colorScheme="orange"
+                variant="solid"
+                disabled={!CEP || CEP.length < 8}
+                p="10px 30px"
+                m="20px 0"
+              >
+                próxima etapa
+              </Button>
+            </Link>
+          </CardBody>
+        </Card>
       )}
       {step === 'selecao' && (
-        <div style={collectPointContainerStyle as React.CSSProperties}>
-          <h1>Selecione o posto de coleta mais próximo</h1>
-          <h3>{selectedCollectPoint ? selectedCollectPoint.name : ''}</h3>
-          <div style={collectPointContainerStyle as React.CSSProperties}>
+        <div>
+          <Heading as="h1" size="lg" mt="4">
+            posto de coleta
+          </Heading>
+          <Text mt="4">selecione o posto de coleta mais próxima etapa</Text>
+          <SimpleGrid
+            spacing={4}
+            templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+          >
             {collectPoints.map((collectPoint) => (
-              <div
+              <Card
+                mt="5"
                 key={collectPoint.id}
                 onClick={() => handleSelectCollectPoint(collectPoint)}
-                style={collectPointStyle as React.CSSProperties}
+                bg={
+                  selectedCollectPoint.id === collectPoint.id
+                    ? 'orange.200'
+                    : 'white'
+                }
+                variant={
+                  selectedCollectPoint.id === collectPoint.id
+                    ? 'filled'
+                    : 'outline'
+                }
               >
-                <h2>{collectPoint.name}</h2>
-                <p>{collectPoint.address}</p>
-              </div>
+                <CardBody>
+                  <h2>{collectPoint.name}</h2>
+                  <p>{collectPoint.address}</p>
+                </CardBody>
+                <CardFooter>
+                  <Button
+                    colorScheme="orange"
+                    variant="solid"
+                    onClick={() => handleSelectCollectPoint(collectPoint)}
+                    disabled={selectedCollectPoint.id === collectPoint.id}
+                  >
+                    selecionar
+                  </Button>
+                </CardFooter>
+              </Card>
             ))}
-          </div>
+          </SimpleGrid>
           <Link to="/activity/reciclagem/formulario">
-            <button>Próximo</button>
+            <Button colorScheme="orange" variant="solid">
+              próxima etapa
+            </Button>
           </Link>
         </div>
       )}
       {step === 'formulario' && (
-        <div>
+        <Box p={4}>
+          <Box>
+            <Heading as="h1" size="lg" mt="4">
+              monte sua coleta
+            </Heading>
+            <Text mt="4">
+              selecione os tipos de resíduos e suas respectivas quantidades
+            </Text>
+          </Box>
+          <Card w="100%" h="100%" p="4" mt="4">
+            <Stat>
+              <StatLabel>{selectedCollectPoint.name}</StatLabel>
+              <StatNumber>{selectedCollectPoint.city}</StatNumber>
+              <StatHelpText>{selectedCollectPoint.address}</StatHelpText>
+            </Stat>
+          </Card>
+          <Box mt={4}>
+            <Heading as="h2" size="md" mt="4">
+              sacos de resíduos
+            </Heading>
+            <NumberInput value={bagCounter} min={1} max={10}>
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper
+                  onClick={() => handleGarbageBags('add')}
+                />
+                <NumberDecrementStepper
+                  onClick={() => handleGarbageBags('remove')}
+                />
+              </NumberInputStepper>
+            </NumberInput>
+          </Box>
           <div>
-            <h3>separação de lixo para reciclagem</h3>
           </div>
-          <div>
-            <h3>{selectedCollectPoint.name}</h3>
-            <span>{selectedCollectPoint.address}</span>
-            <span>{selectedCollectPoint.city}</span>
-          </div>
-          <div>
-            <h3>Quantidade de lixo</h3>
-            <div>
-              <h4>Sacos</h4>
-              <input
-                style={formInputStyle as React.CSSProperties}
-                type="number"
-                min="0"
-                step="1"
-                title="sacos"
-                value={bagCounter}
-              />
-              <button onClick={() => handleGarbageBags('add')}>+</button>
-              <button onClick={() => handleGarbageBags('remove')}>-</button>
-            </div>
-          </div>
-          <div>
-            <h3>Sacos de lixo</h3>
-          </div>
-          <div style={garbageBagContainerStyle as React.CSSProperties}>
+          <SimpleGrid
+            mt={6}
+            spacing={4}
+            templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+          >
             {garbageBags.map((garbageBag) => (
-              <div
+              <Card
                 key={garbageBag.id}
-                style={handleGarbageCardStyle(garbageBag.bagType)}
+                px={4}
+                py={4}
+                overflow="hidden"
+                variant="outline"
               >
                 <h4>Saco</h4>
+                <Badge
+                  variant="solid"
+                  colorScheme={handleGarbageBagTypeColor(garbageBag.bagType)}
+                >
+                  {garbageBag.bagType || 'Tipo'}
+                </Badge>
                 <div>
                   <label htmlFor="bagType">Tipo</label>
-                  <select
+                  <Select
                     title="tipo"
                     name="bagType"
                     id="bagType"
@@ -307,83 +350,104 @@ export default function UserCollectForm({
                     onChange={(e) => handleGarbageBagType(e, garbageBag.id)}
                     required
                   >
-                    <option value="">Selecione</option>
+                    <option value="">selecione</option>
                     <option value="papel">Papel</option>
                     <option value="plastico">Plástico</option>
                     <option value="vidro">Vidro</option>
                     <option value="metal">Metal</option>
                     <option value="organico">Orgânico</option>
-                  </select>
+                  </Select>
                 </div>
                 <div>
                   <label htmlFor="bagWeight">Peso</label>
-                  <input
-                    style={formInputStyle as React.CSSProperties}
-                    type="number"
-                    step="0.1"
-                    min="0"
-                    title="peso"
-                    name="bagWeight"
-                    id="bagWeight"
+                  <NumberInput
                     value={garbageBag.bagWeight}
+                    min={0.1}
+                    max={10}
+                    step={0.1}
                     onChange={(e) => {
                       handleGarbageBagWeight(e, garbageBag.id);
                     }}
-                    required
-                  />
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
                   <span>kgs</span>
                 </div>
-              </div>
+              </Card>
             ))}
-          </div>
+          </SimpleGrid>
           <Link to="/activity/reciclagem/checkout">
-            <button disabled={!isValid}>Próximo</button>
+            <Button colorScheme="orange" variant="solid" disabled={!isValid}>
+              próxima etapa
+            </Button>
           </Link>
-        </div>
+        </Box>
       )}
       {step === 'checkout' && (
-        <div>
-          <h1>Confirmação</h1>
-          <h3>{selectedCollectPoint.name}</h3>
-          <span>{selectedCollectPoint.address}</span>
-          <span>{selectedCollectPoint.city}</span>
-          <div>
-            <h3>Quantidade de lixo</h3>
-            <div>
-              <span>{bagCounter} sacos</span>
-              <table style={summaryTableStyle as React.CSSProperties}>
-                {garbageBags.map((garbageBag) => (
-                  <tr
-                    key={garbageBag.id}
-                    style={summaryTableRowStyle as React.CSSProperties}
-                  >
-                    <td>{garbageBag.bagType}</td>
-                    <td>{garbageBag.bagWeight} kgs</td>
-                  </tr>
-                ))}
-                <td style={totalTableStyle as React.CSSProperties}>
-                  Total {totalWeight} kgs
-                </td>
-              </table>
-              <Link to="/activity/reciclagem/confirmacao">
-                <button>Próximo</button>
-              </Link>
-            </div>
-          </div>
-        </div>
+        <Box p={4}>
+          <Heading as="h1" size="lg" mt="4">
+            checkout
+          </Heading>
+          <Text>confira os dados da sua coleta</Text>
+          <Card w="100%" h="100%" p="4" bg="orange.500" color="white" mt={4}>
+            <Stat>
+              <StatLabel>{selectedCollectPoint.name}</StatLabel>
+              <StatNumber>{selectedCollectPoint.city}</StatNumber>
+              <StatHelpText>{selectedCollectPoint.address}</StatHelpText>
+            </Stat>
+          </Card>
+          <Box mt={4}>
+            <TableContainer>
+              <Table>
+                <Thead>
+                  <Tr>
+                    <Th>Tipo</Th>
+                    <Th>Peso</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {garbageBags.map((garbageBag) => (
+                    <Tr key={garbageBag.id}>
+                      <Td>{garbageBag.bagType}</Td>
+                      <Td>{garbageBag.bagWeight}</Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+            <Link to="/activity/reciclagem/confirmacao">
+              <Button colorScheme="orange" variant="solid">
+                próxima etapa
+              </Button>
+            </Link>
+          </Box>
+        </Box>
       )}
       {step === 'confirmacao' && (
-        <div>
-          <h1>Confirmação</h1>
-          <p>
-            Agora é só aguardar a confirmação do Ponto de Coleta para receber
+        <Box p={4}>
+          <Heading as="h1" size="lg" mt="4">
+            confirmação / resgatar pontos
+          </Heading>
+          <Text mt={4}>
+            agora é só aguardar a confirmação do ponto de coleta para receber
             seus pontos!
-          </p>
-          <Link to="/activity/reciclagem">
-            <button onClick={handlePoints}>Confirmar</button>
+          </Text>
+          <Link to="/">
+            <Button
+              colorScheme="orange"
+              variant="solid"
+              onClick={handlePoints}
+              mt={5}
+            >
+              Confirmar
+            </Button>
           </Link>
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }
