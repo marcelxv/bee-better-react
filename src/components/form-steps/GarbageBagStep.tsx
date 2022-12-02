@@ -39,7 +39,7 @@ export default function GarbageBagStep({
   bagCounter: number;
 }) {
   return (
-    <Box p={4}>
+    <Box p={4} zIndex="0" mb="150px">
       <Box>
         <Heading as="h1" size="lg" mt="4">
           monte sua coleta
@@ -129,11 +129,13 @@ export default function GarbageBagStep({
           </Card>
         ))}
       </SimpleGrid>
+      <Box position="fixed" bottom="0" w="100%" p="2rem" bg="white" zIndex="1">
       <Link to="/activity/reciclagem/checkout">
         <Button colorScheme="orange" variant="solid" disabled={!isValid}>
           próxima etapa
         </Button>
       </Link>
+      </Box>
     </Box>
   );
 }

@@ -1,4 +1,4 @@
-import { Heading, SimpleGrid, Card, CardBody, CardFooter, Text, Button } from '@chakra-ui/react';
+import { Box, Heading, SimpleGrid, Card, CardBody, CardFooter, Text, Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 export default function CollectPointStep({ collectPoints, selectedCollectPoint, setSelectedCollectPoint } : {
@@ -13,7 +13,7 @@ export default function CollectPointStep({ collectPoints, selectedCollectPoint, 
   };
 
   return (
-    <div>
+    <Box p={4} zIndex="0" mb="150px">
       <Heading as="h1" size="lg" mt="4">
         posto de coleta
       </Heading>
@@ -53,11 +53,13 @@ export default function CollectPointStep({ collectPoints, selectedCollectPoint, 
           </Card>
         ))}
       </SimpleGrid>
+      <Box position="fixed" bottom="0" w="100%" p="2rem" bg="white" zIndex="1">
       <Link to="/activity/reciclagem/formulario">
-        <Button colorScheme="orange" variant="solid">
+        <Button colorScheme="orange" variant="solid" disabled={selectedCollectPoint.id === 0}>
           próxima etapa
         </Button>
       </Link>
-    </div>
+    </Box>
+    </Box>
   );
 }
