@@ -5,6 +5,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import { ChakraProvider } from '@chakra-ui/react';
 import UserCoinCounter from './components/UserCoinCounter';
 import { useState } from 'react';
+import ChatModal from './components/ChatModal';
 
 function App() {
   const [points, setPoints] = useState(0);
@@ -37,6 +38,7 @@ function App() {
           />
         </Routes>
       <UserCoinCounter points={points} />
+      <ChatModal />
       </Router>
     </ChakraProvider>
   );
