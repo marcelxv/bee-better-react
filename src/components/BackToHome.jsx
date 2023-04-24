@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Button,
-  useToast,
+  Box,
   AlertDialog,
   AlertDialogBody,
   AlertDialogFooter,
@@ -14,14 +14,14 @@ import {
 
 function BackToHome() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = React.useRef();
+  const cancelRef = useRef();
 
   if (useLocation().pathname === '/') {
     return null;
   }
 
   return (
-    <div style={{ position: 'fixed', top: '0', right: '0', margin: '1rem' }}>
+    <Box>
       <Button onClick={onOpen}>🏠</Button>
       <AlertDialog
         isOpen={isOpen}
@@ -49,7 +49,7 @@ function BackToHome() {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-    </div>
+    </Box>
   );
 }
 
