@@ -1,13 +1,24 @@
-import { Box, Heading, SimpleGrid, Card, CardBody, CardFooter, Text, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  SimpleGrid,
+  Card,
+  CardBody,
+  CardFooter,
+  Text,
+  Button,
+} from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-export default function CollectPointStep({ collectPoints, selectedCollectPoint, setSelectedCollectPoint } : {
-    collectPoints: Array<any>;
-    setSelectedCollectPoint: React.Dispatch<React.SetStateAction<any>>;
-    selectedCollectPoint: any;
+export default function CollectPointStep({
+  collectPoints,
+  selectedCollectPoint,
+  setSelectedCollectPoint,
+}: {
+  collectPoints: Array<any>;
+  setSelectedCollectPoint: React.Dispatch<React.SetStateAction<any>>;
+  selectedCollectPoint: any;
 }) {
-
-
   const handleSelectCollectPoint = (collectPoint: any) => {
     setSelectedCollectPoint(collectPoint);
   };
@@ -27,10 +38,14 @@ export default function CollectPointStep({ collectPoints, selectedCollectPoint, 
             mt="5"
             key={collectPoint.id}
             onClick={() => handleSelectCollectPoint(collectPoint)}
+            color={
+              selectedCollectPoint.id === collectPoint.id ? 'white' : 'black'
+            }
+            cursor="pointer"
             bg={
               selectedCollectPoint.id === collectPoint.id
-                ? 'orange.200'
-                : 'white'
+                ? 'orange.400'
+                : 'orange.100'
             }
             variant={
               selectedCollectPoint.id === collectPoint.id ? 'filled' : 'outline'
@@ -41,25 +56,26 @@ export default function CollectPointStep({ collectPoints, selectedCollectPoint, 
               <p>{collectPoint.address}</p>
             </CardBody>
             <CardFooter>
-              <Button
-                colorScheme="orange"
-                variant="solid"
-                onClick={() => handleSelectCollectPoint(collectPoint)}
-                disabled={selectedCollectPoint.id === collectPoint.id}
-              >
-                selecionar
-              </Button>
+              {selectedCollectPoint.id === collectPoint.id ? (
+                <Text color="white">selecionado</Text>
+              ) : (
+                <Text color="black">selecionar</Text>
+              )}
             </CardFooter>
           </Card>
         ))}
       </SimpleGrid>
-      <Box position="fixed" bottom="0" w="100%" p="2rem" bg="white" zIndex="1">
-      <Link to="/activity/reciclagem/formulario">
-        <Button colorScheme="orange" variant="solid" disabled={selectedCollectPoint.id === 0}>
-          próxima etapa
-        </Button>
-      </Link>
-    </Box>
+      <Box position="fixed" bottom="0" p="2rem" zIndex="1">
+        <Link to="/activity/reciclagem/formulario">
+          <Button
+            colorScheme="orange"
+            variant="solid"
+            disabled={selectedCollectPoint.id === 0}
+          >
+            próxima etapa
+          </Button>
+        </Link>
+      </Box>
     </Box>
   );
 }

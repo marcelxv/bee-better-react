@@ -129,7 +129,7 @@ export default function GarbageBagStep({
           </Card>
         ))}
       </SimpleGrid>
-      <Box position="fixed" bottom="0" w="100%" p="2rem" bg="white" zIndex="1">
+      <Box position="fixed" bottom="0" p="2rem" zIndex="1">
       <Link to="/activity/reciclagem/checkout">
         <Button colorScheme="orange" variant="solid" disabled={!isValid}>
           próxima etapa

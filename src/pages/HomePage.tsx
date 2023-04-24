@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   Box,
   Card,
+  CardFooter,
   SimpleGrid,
   Heading,
   Text,
@@ -15,27 +16,31 @@ export default function HomePage() {
   const [activities, setActivity] = useState([
     {
       id: 1,
-      name: 'cultivo em horta doméstica',
-      description: 'cultivo de hortaliças em horta doméstica',
-      link: '/',
-      active: false,
-    },
-    {
-      id: 2,
+      emoji: '♻️',
       name: 'separação de lixo para reciclagem',
       description: 'separação de lixo para reciclagem',
       link: '/activity/reciclagem',
       active: true,
     },
     {
+      id: 2,
+      emoji: '🌱',
+      name: 'cultivo em horta doméstica',
+      description: 'cultivo de hortaliças em horta doméstica',
+      link: '/',
+      active: false,
+    },
+    {
       id: 3,
-      name: 'hábitos alimentares saúdaveis',
-      description: 'hábitos alimentares saúdaveis',
+      emoji: '🍎',
+      name: 'hábitos alimentares saudáveis',
+      description: 'hábitos alimentares saudáveis',
       link: '/',
       active: false,
     },
     {
       id: 4,
+      emoji: '🏃',
       name: 'práticas de atividades físicas',
       description: 'práticas de atividades físicas',
       link: '/',
@@ -43,8 +48,9 @@ export default function HomePage() {
     },
     {
       id: 5,
-      name: 'participação em projetos de voluntáriado',
-      description: 'participação em projetos de voluntáriado',
+      emoji: '👨‍👩‍👧‍👦',
+      name: 'participação em projetos de voluntariado',
+      description: 'participação em projetos de voluntariado',
       link: '/',
       active: false,
     },
@@ -53,7 +59,9 @@ export default function HomePage() {
   return (
     <Box w="360px" h="100%" m="0 auto">
       <Box>
-        <img src={Logo} alt="logo beebetter" />
+        <Box w="100%" textAlign="center" mt="20px">
+          <img src={Logo} alt="logo" />
+        </Box>
         <Box mt="10px">
           <Heading>olá, {user.name}!</Heading>
           <Text mt="10px">
@@ -65,15 +73,41 @@ export default function HomePage() {
             </Highlight>
           </Text>
         </Box>
-        <SimpleGrid columns={2} spacing={10} mt="40px">
+        <SimpleGrid columns={1} spacing={10} mt="40px">
           {activities.map((activity) => (
-            <Link to={activity.link} key={activity.id}>
+            <Link
+              to={activity.link}
+              key={activity.id}
+              style={
+                activity.active
+                  ? { pointerEvents: 'auto' }
+                  : { pointerEvents: 'none' }
+              }
+            >
               <Card
-                variant={activity.active ? 'elevated' : 'filled'}
-                p="2rem"
-                _hover={activity.active ? { cursor: 'pointer' } : {}}
+                variant={activity.active ? 'filled' : 'outline'}
+                color={activity.active ? 'white' : 'gray.500'}
+                _hover={
+                  activity.active ? { bg: 'green.500' } : { bg: 'gray.200' }
+                }
+                cursor="pointer"
+                p="20px"
+                h="100%"
               >
-                <h3>{activity.name}</h3>
+                <Box fontSize="3rem" textAlign="center">
+                  {activity.emoji}
+                </Box>
+                <Box textAlign="center">
+                  <Heading as="h2" size="md">
+                    {activity.name}
+                  </Heading>
+                  <Text>{activity.description}</Text>
+                </Box>
+                <CardFooter>
+                  {!activity.active ? (
+                    <Text textAlign="center">em breve</Text>
+                  ) : null}
+                </CardFooter>
               </Card>
             </Link>
           ))}

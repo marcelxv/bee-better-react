@@ -60,9 +60,7 @@ export default function CheckoutStep({
         <Box
           position="fixed"
           bottom="0"
-          w="100%"
           p="2rem"
-          bg="white"
           zIndex="1"
         >
           <Link to="/activity/reciclagem/confirmacao">

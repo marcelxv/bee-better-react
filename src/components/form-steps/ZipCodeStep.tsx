@@ -78,7 +78,7 @@ export default function ZipCodeStep({
         </CardBody>
       </Card>
 
-      <Box position="fixed" bottom="0" w="100%" p="2rem" bg="white" zIndex="1">
+      <Box position="fixed" bottom="0" p="2rem" zIndex="1">
         <Link to="/activity/reciclagem/selecao">
           <Button
             colorScheme="orange"

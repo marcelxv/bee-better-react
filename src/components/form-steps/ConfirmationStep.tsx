@@ -15,7 +15,7 @@ export default function ConfirmationStep({
         agora é só aguardar a confirmação do ponto de coleta para receber seus
         pontos!
       </Text>
-      <Box position="fixed" bottom="0" w="100%" p="2rem" bg="white" zIndex="1">
+      <Box position="fixed" bottom="0" w="100%" p="2rem" zIndex="1">
         <Link to="/">
           <Button
             colorScheme="orange"
