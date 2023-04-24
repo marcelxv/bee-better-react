@@ -85,10 +85,11 @@ export default function HomePage() {
               }
             >
               <Card
-                variant={activity.active ? 'filled' : 'outline'}
-                color={activity.active ? 'white' : 'gray.500'}
+                variant={activity.active ? 'solid' : 'outline'}
+                bg={activity.active ? 'gray.50' : 'white'}
+                color={activity.active ? 'gray.800' : 'gray.400'}
                 _hover={
-                  activity.active ? { bg: 'green.500' } : { bg: 'gray.200' }
+                  activity.active ? { bg: 'gray.100' } : { bg: 'gray.50' }
                 }
                 cursor="pointer"
                 p="20px"
