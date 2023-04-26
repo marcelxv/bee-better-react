@@ -9,6 +9,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import ContinueButton from '../ContinueButton';
 
 export default function CollectPointStep({
   collectPoints,
@@ -65,17 +66,7 @@ export default function CollectPointStep({
           </Card>
         ))}
       </SimpleGrid>
-      <Box position="fixed" bottom="0" p="2rem" zIndex="1">
-        <Link to="/activity/reciclagem/formulario">
-          <Button
-            colorScheme="orange"
-            variant="solid"
-            disabled={selectedCollectPoint.id === 0}
-          >
-            próxima etapa
-          </Button>
-        </Link>
-      </Box>
+          <ContinueButton isValid={selectedCollectPoint.id} link="/activity/reciclagem/formulario" />
     </Box>
   );
 }

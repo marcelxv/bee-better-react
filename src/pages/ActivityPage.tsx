@@ -1,4 +1,7 @@
 import UserCollectForm from '../components/UserCollectForm';
+import Navbar from '../components/NavBar';
+import { Box } from '@chakra-ui/react';
+import { ToastContainer } from 'react-toastify';
 
 export default function ActivityPage({
   pageType,
@@ -13,12 +16,14 @@ export default function ActivityPage({
 }) {
 
   return (
-    <div>
+    <>
+      <Navbar />
       {pageType === 'reciclagem' ? (
-        <div>
+        <Box>
           <UserCollectForm step={step} points={points} setPoints={setPoints} />
-        </div>
+        </Box>
       ) : null}
-    </div>
+      <ToastContainer />
+    </>
   );
 }

@@ -18,6 +18,7 @@ import {
   NumberDecrementStepper,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import ContinueButton from '../ContinueButton';
 
 export default function GarbageBagStep({
   garbageBags,
@@ -129,13 +130,7 @@ export default function GarbageBagStep({
           </Card>
         ))}
       </SimpleGrid>
-      <Box position="fixed" bottom="0" p="2rem" zIndex="1">
-      <Link to="/activity/reciclagem/checkout">
-        <Button colorScheme="orange" variant="solid" disabled={!isValid}>
-          próxima etapa
-        </Button>
-      </Link>
-      </Box>
+      <ContinueButton isValid={isValid} link="/activity/reciclagem/checkout" />
     </Box>
   );
 }

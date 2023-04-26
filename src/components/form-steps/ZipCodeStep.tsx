@@ -6,10 +6,15 @@ import {
   Input,
   Button,
   Text,
+  Spinner,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { lowerText } from '../../utils/lowerText';
+import ContinueButton from '../ContinueButton';
 
 export default function ZipCodeStep({
   CEP,
@@ -24,23 +29,40 @@ export default function ZipCodeStep({
     localidade: '',
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
-  const useCEP: any = (cep: string) => {
-      useEffect(() => {
-        setIsLoading(true);
-        axios
-          .get(`https://viacep.com.br/ws/${cep}/json/`)
-          .then((response) => {
-            setAddress(response.data);
+  const randomNumber = Math.floor(Math.random() * 10) + 1;
+
+  useEffect(() => {
+    if (CEP.length === 8) {
+      setIsLoading(true);
+      axios
+        .get(`https://viacep.com.br/ws/${CEP}/json/`)
+        .then((response) => {
+          if (response.data.erro) {
+            toast.error('CEP não encontrado');
             setIsLoading(false);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-    }, [cep]);
-
-    return address;
-  };
+            setAddress({ logradouro: '', bairro: '', localidade: '' });
+            return;
+          }
+          setTimeout(() => {
+            setAddress({
+              logradouro: lowerText(response.data.logradouro),
+              bairro: lowerText(response.data.bairro),
+              localidade: lowerText(response.data.localidade),
+            });
+            toast.success('CEP encontrado');
+            setIsLoading(false);
+            setIsValid(true);
+          }, 2000);
+        })
+        .catch((err) => {
+          toast.error('CEP não encontrado');
+          setIsLoading(false);
+          setAddress({ logradouro: '', bairro: '', localidade: '' });
+        });
+    }
+  }, [CEP]);
 
   return (
     <Box p={4} zIndex="0" mb="150px">
@@ -57,41 +79,41 @@ export default function ZipCodeStep({
             onChange={(e) => setCEP(e.target.value)}
             mt="4"
           />
-          {isLoading ? (
-            <Text mt="4">buscando seu endereço</Text>
-          ) : (
-            <Box>
-              <Heading as="h2" size="md" mt="4">
-                Logradouro:
-              </Heading>
-              <Text>{address.logradouro}</Text>
-              <Heading as="h2" size="md" mt="4">
-                Bairro:
-              </Heading>
-              <Text>{address.bairro}</Text>
-              <Heading as="h2" size="md" mt="4">
-                Cidade:
-              </Heading>
-              <Text>{address.localidade}</Text>
-            </Box>
-          )}
         </CardBody>
       </Card>
-
-      <Box position="fixed" bottom="0" p="2rem" zIndex="1">
-        <Link to="/activity/reciclagem/selecao">
-          <Button
-            colorScheme="orange"
-            variant="solid"
-            disabled={useCEP(CEP).localidade === undefined || CEP.length < 8}
-            p="10px 30px"
-            m="20px 0"
-            onClick={useCEP(CEP)}
-          >
-            próxima etapa
-          </Button>
-        </Link>
-      </Box>
-    </Box>
+      {isLoading ? (
+        <Spinner mt="4" />
+      ) : (
+        <>
+          <Card>
+            <CardBody>
+              <Text mt="4">
+                <strong>logradouro:</strong> {address.logradouro}
+              </Text>
+              <Text mt="4">
+                <strong>bairro:</strong> {address.bairro}
+              </Text>
+              <Text mt="4">
+                <strong>cidade:</strong> {address.localidade}
+              </Text>
+            </CardBody>
+          </Card>
+          <Card>
+            <CardBody>
+              <Heading as="h3" size="md" mt="4">
+                pontos encontrados
+              </Heading>
+              <Text mt="4">
+                foram encontrados <strong>{randomNumber}</strong> pontos de coleta próximos a
+                você
+              </Text>
+            </CardBody>
+          </Card>
+        </>
+      )}
+      <ToastContainer />
+      <ContinueButton isValid={isValid} link="/activity/reciclagem/selecao" />
+    </Box >
   );
 }
+

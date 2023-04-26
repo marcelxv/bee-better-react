@@ -1,5 +1,6 @@
 import { Box, Heading, Text, Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import ContinueButton from '../ContinueButton';
 
 export default function ConfirmationStep({
   handlePoints,
@@ -15,18 +16,7 @@ export default function ConfirmationStep({
         agora é só aguardar a confirmação do ponto de coleta para receber seus
         pontos!
       </Text>
-      <Box position="fixed" bottom="0" w="100%" p="2rem" zIndex="1">
-        <Link to="/">
-          <Button
-            colorScheme="orange"
-            variant="solid"
-            onClick={handlePoints}
-            mt={5}
-          >
-            Confirmar
-          </Button>
-        </Link>
-      </Box>
+      <ContinueButton isValid={true} link="/activity/reciclagem" onClick={handlePoints} />
     </Box>
   );
 }

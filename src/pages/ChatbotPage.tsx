@@ -8,6 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import data from '../data/answers.json';
+import Navbar from '../components/NavBar';
 
 
 const INITIAL_MESSAGES = [
@@ -67,77 +68,80 @@ const Chatbot = () => {
   };
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" p={4} maxW="md" w="full" mx="auto">
-      <Box overflowY="scroll" maxHeight="400px" id="chat">
-        {messages.map((message, index) => (
-          <Box key={index} mb={2} textAlign={message.isBot ? 'left' : 'right'}>
-            <Text fontWeight="bold" mb={1}>
-              {message.isBot ? 'Bill 🐝' : 'Você'}
-            </Text>
-            <Box
-              borderWidth="1px"
-              borderRadius="lg"
-              p={3}
-              color={message.isBot ? 'white' : 'black'}
-              bg={message.isBot ? 'black' : 'yellow.100'}
-            >
-              {message.text}
+    <>
+      <Navbar />
+      <Box borderWidth="1px" borderRadius="lg" p={4} maxW="md" w="full" mx="auto">
+        <Box overflowY="scroll" maxHeight="400px" id="chat">
+          {messages.map((message, index) => (
+            <Box key={index} mb={2} textAlign={message.isBot ? 'left' : 'right'}>
+              <Text fontWeight="bold" mb={1}>
+                {message.isBot ? 'Bill 🐝' : 'Você'}
+              </Text>
+              <Box
+                borderWidth="1px"
+                borderRadius="lg"
+                p={3}
+                color={message.isBot ? 'white' : 'black'}
+                bg={message.isBot ? 'black' : 'yellow.100'}
+              >
+                {message.text}
+              </Box>
             </Box>
-          </Box>
-        ))}
-      </Box>
-      <Box mt={4}>
-        {botIsTyping && (
-          <Text fontSize="sm" color="yellow.100" textAlign="center" mt={2}>
-            Bill está digitando... 🐝
-          </Text>
-        )}
-      </Box>
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(1, 1fr)"
-        gridGap={2}
-        mb={4}
-      >
-        {listAnswers().map((item, index) => (
+          ))}
+        </Box>
+        <Box mt={4}>
+          {botIsTyping && (
+            <Text fontSize="sm" color="yellow.100" textAlign="center" mt={2}>
+              Bill está digitando... 🐝
+            </Text>
+          )}
+        </Box>
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(1, 1fr)"
+          gridGap={2}
+          mb={4}
+        >
+          {listAnswers().map((item, index) => (
+            <Button
+              key={index}
+              colorScheme="yellow"
+              onClick={() => {
+                setNewQuestion(item);
+              }}
+            >
+              {item}
+            </Button>
+          ))}
+
+        </Box>
+        <InputGroup mt={4}>
+          <Input
+            placeholder="Digite sua mensagem"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                handleNewMessage();
+              }
+            }}
+          />
           <Button
-            key={index}
             colorScheme="yellow"
             onClick={() => {
-              setNewQuestion(item);
-            }}
-          >
-            {item}
-          </Button>
-        ))}
-        
-      </Box>
-      <InputGroup mt={4}>
-        <Input
-          placeholder="Digite sua mensagem"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
               handleNewMessage();
-            }
-          }}
-        />
-        <Button
-          colorScheme="yellow"
-          onClick={() => {
-            handleNewMessage();
-          }}
-          ml={2}
-        >
-          Enviar
+            }}
+            ml={2}
+          >
+            Enviar
+          </Button>
+        </InputGroup>
+        <Box h={4} />
+        <Button colorScheme="red" onClick={clearMessages}>
+          Limpar
         </Button>
-      </InputGroup>
-      <Box h={4} />
-      <Button colorScheme="red" onClick={clearMessages}>
-        Limpar
-      </Button>
-    </Box>
+      </Box>
+    </>
   );
 };
 
