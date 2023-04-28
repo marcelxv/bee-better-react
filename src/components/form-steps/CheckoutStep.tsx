@@ -17,6 +17,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import ContinueButton from '../ContinueButton';
 
 export default function CheckoutStep({
   garbageBags,
@@ -57,18 +58,7 @@ export default function CheckoutStep({
             </Tbody>
           </Table>
         </TableContainer>
-        <Box
-          position="fixed"
-          bottom="0"
-          p="2rem"
-          zIndex="1"
-        >
-          <Link to="/activity/reciclagem/confirmacao">
-            <Button colorScheme="orange" variant="solid">
-              próxima etapa
-            </Button>
-          </Link>
-        </Box>
+        <ContinueButton isValid={true} link="/activity/reciclagem/confirmacao" />
       </Box>
     </Box>
   );

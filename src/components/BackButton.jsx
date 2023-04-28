@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@chakra-ui/react';
+import { Button, Box } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 
 function BackButton() {
@@ -9,7 +9,7 @@ function BackButton() {
 
 
   return (
-    <div style={{ position: 'fixed', top: '0', left: '0', margin: '1rem' }}>
+    <Box>
       <Button
         onClick={() => window.history.back()}
         colorScheme="orange"
@@ -20,7 +20,7 @@ function BackButton() {
       >
         voltar
       </Button>
-    </div>
+    </Box>
   );
 }
 

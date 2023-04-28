@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
+  Button,
   Card,
   CardFooter,
   SimpleGrid,
@@ -9,7 +10,7 @@ import {
   Text,
   Highlight,
 } from '@chakra-ui/react';
-import Logo from '../images/logo-beebetter.svg';
+import Navbar from '../components/NavBar';
 
 export default function HomePage() {
   const [user, setUser] = useState({ name: 'john doe' });
@@ -57,22 +58,18 @@ export default function HomePage() {
   ]);
 
   return (
-    <Box w="360px" h="100%" m="0 auto">
-      <Box>
-        <Box w="100%" textAlign="center" mt="20px">
-          <img src={Logo} alt="logo" />
-        </Box>
+    <Box bg="gray.50" minH="100vh">
+      <Navbar />
         <Box mt="10px">
           <Heading>olá, {user.name}!</Heading>
-          <Text mt="10px">
+          <Text mt="10px" fontSize="lg">
             <Highlight
               query="beecoins"
-              styles={{ px: '2', py: '1', rounded: 'full', bg: 'orange' }}
+              styles={{ px: '1', py: '1', bg: 'orange.100' }}
             >
               escolha uma atividade para começar a ganhar beecoins
             </Highlight>
           </Text>
-        </Box>
         <SimpleGrid columns={1} spacing={10} mt="40px">
           {activities.map((activity) => (
             <Link

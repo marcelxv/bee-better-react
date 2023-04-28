@@ -181,7 +181,7 @@ export default function UserCollectForm({
   }, [garbageBags]);
 
   return (
-    <Box w="360px" h="100%" m="0 auto">
+    <Box w="100%" h="100%" bg="white" borderRadius="10px" p="20px">
       {step === 'setCEP' && (
         <ZipCodeStep CEP={CEP} setCEP={setCEP}/>
       )}
