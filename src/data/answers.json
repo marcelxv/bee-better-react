@@ -1,7 +1,7 @@
 [
   {
-    "question": "O que é o BeeBetter?",
-    "answer": "O BeeBetter é uma plataforma de gamificação que incentiva as pessoas a adotarem hábitos sustentáveis. 🌿 Através de desafios e atividades gamificadas, o BeeBetter ajuda as pessoas a se engajarem com a sustentabilidade e a adotarem práticas eco-friendly em suas vidas."
+    "question": "O que é a BeeBetter?",
+    "answer": "A BeeBetter é uma plataforma de gamificação que incentiva as pessoas a adotarem hábitos sustentáveis. 🌿 Através de desafios e atividades gamificadas, o BeeBetter ajuda as pessoas a se engajarem com a sustentabilidade e a adotarem práticas eco-friendly em suas vidas."
   },
   {
     "question": "O que você pode fazer?",
@@ -18,5 +18,45 @@
   {
     "question": "Como as empresas podem utilizar?",
     "answer": "As empresas podem utilizar o BeeBetter para incentivar seus colaboradores a adotarem práticas sustentáveis, acompanhando o desempenho e oferecendo incentivos através da plataforma."
+  },
+  {
+    "question": "Como funciona o sistema de pontuação do BeeBetter?",
+    "answer": "Os usuários ganham pontos ao completar desafios e atividades sustentáveis, e também podem ganhar pontos extras ao subir de nível e competir com amigos e colegas. Os pontos podem ser usados para desbloquear recompensas e vantagens exclusivas."
+  },
+  {
+    "question": "Quais são os tipos de incentivos oferecidos pelo BeeBetter para os usuários?",
+    "answer": "O BeeBetter oferece uma variedade de incentivos, incluindo recompensas em dinheiro, doações para causas sustentáveis, descontos em produtos eco-friendly, certificados de sustentabilidade e muito mais."
+  },
+  {
+    "question": "Como o BeeBetter ajuda a preservar o meio ambiente?",
+    "answer": "O BeeBetter ajuda a preservar o meio ambiente incentivando a adoção de práticas sustentáveis que reduzem o impacto ambiental das atividades cotidianas. Isso inclui redução do consumo de energia e água, uso de transportes sustentáveis, reciclagem, entre outras práticas que contribuem para a conservação do meio ambiente."
+  },
+  {
+    "question": "Como os usuários podem interagir com outros participantes do BeeBetter?",
+    "answer": "Os usuários podem interagir com outros participantes do BeeBetter através de desafios e atividades gamificadas, bem como competir com amigos e colegas para ver quem é o mais sustentável. Além disso, o BeeBetter oferece uma comunidade online onde os usuários podem compartilhar suas experiências, dicas e ideias sustentáveis."
+  },
+  {
+    "question": "Quais são as próximas funcionalidades que serão adicionadas à plataforma BeeBetter?",
+    "answer": "As próximas funcionalidades que serão adicionadas ao BeeBetter incluem um sistema de reconhecimento de voz para facilitar a interação com o chatbot Bill, a integração com dispositivos inteligentes para monitorar o consumo de energia e água, e uma seção de notícias e informações sustentáveis para manter os usuários atualizados sobre as últimas tendências e práticas sustentáveis."
+  },
+  {
+    "question": "Como o BeeBetter ajuda as empresas a se tornarem mais sustentáveis?",
+    "answer": "O BeeBetter ajuda as empresas a se tornarem mais sustentáveis incentivando seus colaboradores a adotarem práticas sustentáveis, acompanhando o desempenho e oferecendo incentivos através da plataforma. Além disso, o BeeBetter oferece uma variedade de serviços para ajudar as empresas a se tornarem mais sustentáveis, incluindo consultoria, treinamento e certificação."
+  },
+  {
+    "question": "Como o BeeBetter ajuda os usuários a economizar dinheiro?",
+    "answer": "O BeeBetter ajuda os usuários a economizar dinheiro incentivando a adoção de práticas sustentáveis que reduzem o consumo de energia e água, bem como o uso de transportes sustentáveis. Além disso, o BeeBetter oferece uma variedade de incentivos, incluindo recompensas em dinheiro, descontos em produtos eco-friendly e muito mais."
+  },
+  {
+    "question": "Como o BeeBetter ajuda os usuários a economizar tempo?",
+    "answer": "O BeeBetter ajuda os usuários a economizar tempo incentivando a adoção de práticas sustentáveis que reduzem o consumo de energia e água, bem como o uso de transportes sustentáveis. Além disso, o BeeBetter oferece uma variedade de incentivos, incluindo recompensas em dinheiro, descontos em produtos eco-friendly e muito mais."
+  },
+  {
+    "question": "Como o BeeBetter ajuda os usuários a economizar energia?",
+    "answer": "O BeeBetter ajuda os usuários a economizar energia incentivando a adoção de práticas sustentáveis que reduzem o consumo de energia e água, bem como o uso de transportes sustentáveis. Além disso, o BeeBetter oferece uma variedade de incentivos, incluindo recompensas em dinheiro, descontos em produtos eco-friendly e muito mais."
+  },
+  {
+    "question": "Como o BeeBetter ajuda os usuários a economizar água?",
+    "answer": "O BeeBetter ajuda os usuários a economizar água incentivando a adoção de práticas sustentáveis que reduzem o consumo de energia e água, bem como o uso de transportes sustentáveis. Além disso, o BeeBetter oferece uma variedade de incentivos, incluindo recompensas em dinheiro, descontos em produtos eco-friendly e muito mais."
   }
 ]
