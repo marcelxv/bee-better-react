@@ -1,32 +1,35 @@
 
 import React from "react";
-import { Text } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 
 const ListQuestions = (
     { questions, setNewQuestion },
     { listQuestions, setListQuestions }
 ) => {
     return (
-        <>
+        <Box display="flex" flexDirection="column" flexWrap="wrap" m={2}>
             {questions.map((item, index) => (
-                <Text
+                <Button
                     key={index}
-                    size="sm"
-                    textAlign="center"
-                    bg="yellow.300"
+                    h="50px"
+                    maxW="sm"
+                    whiteSpace={"normal"}
+                    bg="gray.100"
                     borderRadius="lg"
-                    p={2}
+                    boxShadow="md"
+                    py={8}
+                    px={4}
                     cursor="pointer"
-                    mb={2}
-                    textOverflow="ellipsis"
+                    mb={4}
+                    wordBreak={"break-word"}
                     onClick={() => {
                         setNewQuestion(item);
                     }}
                 >
                     {item}
-                </Text>
+                </Button>
             ))}
-        </>
+        </Box>
     );
 };
 export default ListQuestions;

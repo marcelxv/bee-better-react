@@ -18,8 +18,8 @@ const ChatBox = ({ messages, sendMessage, botIsTyping }) => {
                             borderWidth="1px"
                             borderRadius="lg"
                             p={3}
-                            color={message.isBot ? 'white' : 'black'}
-                            bg={message.isBot ? 'black' : 'yellow.100'}
+                            color={message.isBot ? 'black' : 'black'}
+                            bg={message.isBot ? 'yellow.300' : 'gray.100'}
                         >
                             {message.text}
                         </Box>
