@@ -16,7 +16,7 @@ export default function ConfirmationStep({
         agora é só aguardar a confirmação do ponto de coleta para receber seus
         pontos!
       </Text>
-      <ContinueButton isValid={true} link="/activity/reciclagem" onClick={handlePoints} />
+      <ContinueButton isValid={true} link="/" onClick={handlePoints} />
     </Box>
   );
 }

@@ -1,26 +1,37 @@
-import HomePage from './pages/HomePage';
+import HomePage from './pages/LoggedHomePage';
+import AuthPage from './pages/AuthPage';
 import ActivityPage from './pages/ActivityPage';
 import ChatbotPage from './pages/ChatbotPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NotFoundPage from './pages/NotFoundPage';
 import { ChakraProvider } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HamburgerMenu from './components/HamburgerMenu';
+import supabase from './services/supabase';
 
 function App() {
-  const [points, setPoints] = useState(0);
+  const [isLogged, setIsLogged] = useState(false);
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    points: 0,
+  });
 
   return (
     <>
       <ChakraProvider>
         <Router>
           <>
-          <HamburgerMenu
-            points={points}
-          />
+            <HamburgerMenu
+              user={user}
+              isLogged={isLogged}
+              setUser={setUser}
+              setIsLogged={setIsLogged}
+            />
           </>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<AuthPage setUser={setUser} setIsLogged={setIsLogged} />} />
+            <Route path="/home" element={<HomePage isLogged={isLogged} user={user} />} />
             <Route
               path="/activity/reciclagem"
               element={<ActivityPage pageType="reciclagem" step="setCEP" />}
@@ -44,8 +55,8 @@ function App() {
                 <ActivityPage
                   pageType="reciclagem"
                   step="confirmacao"
-                  points={points}
-                  setPoints={setPoints}
+                  points={user.points}
+                  setUser={setUser}
                 />
               }
             />

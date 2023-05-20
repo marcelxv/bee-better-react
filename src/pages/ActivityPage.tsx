@@ -7,12 +7,12 @@ export default function ActivityPage({
   pageType,
   step,
   points,
-  setPoints,
+  setUser,
 }: {
   pageType: string;
   step: string;
   points?: number;
-  setPoints?: React.Dispatch<React.SetStateAction<number>>;
+  setUser?: any;
 }) {
 
   return (
@@ -20,7 +20,7 @@ export default function ActivityPage({
       <Navbar />
       {pageType === 'reciclagem' ? (
         <Box>
-          <UserCollectForm step={step} points={points} setPoints={setPoints} />
+          <UserCollectForm step={step} points={points} setPoints={setUser} />
         </Box>
       ) : null}
       <ToastContainer />

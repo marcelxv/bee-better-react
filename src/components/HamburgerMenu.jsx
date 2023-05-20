@@ -9,14 +9,34 @@ import {
   DrawerOverlay,
   useDisclosure,
   Text,
+  Box,
 } from '@chakra-ui/react';
 import UserCoinCounter from './UserCoinCounter';
 import { Link, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function HamburgerMenu({ points }) {
+function HamburgerMenu({ user, isLogged, setUser, setIsLogged }) {
   let location = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+
+  const handleLogout = () => {
+    setIsLogged(false);
+    setUser({
+      name: '',
+      email: '',
+      points: 0
+    });
+    
+    console.log(user);
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate('/');
+    onClose();
+  };
 
   return (
     <>
@@ -29,6 +49,17 @@ function HamburgerMenu({ points }) {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
+          {!isLogged ? (
+            <Button onClick={handleLogin} my={3} colorScheme="yellow" variant="outline" size="sm" style={{
+              alignSelf: 'center'
+            }}>
+              Logar
+            </Button>
+          ) : (
+            <Button onClick={(handleLogout)}>
+              Deslogar
+            </Button>
+          )}
           <DrawerHeader display="flex" justifyContent="space-between">
             <Text>BeeBetter</Text>
           </DrawerHeader>
@@ -48,7 +79,11 @@ function HamburgerMenu({ points }) {
                 Sobre
               </Button>
             </Link>
-            <UserCoinCounter points={points} />
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Text>Logado como:</Text>
+              <Text fontWeight="bold">{user.name}</Text>
+            </Box>
+            <UserCoinCounter user={user} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
