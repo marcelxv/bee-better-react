@@ -4,16 +4,19 @@ import Navbar from '../components/NavBar';
 import { Box, Button } from '@chakra-ui/react';
 import { ToastContainer } from 'react-toastify';
 import { createCollect } from '../services/auth';
+import { nanoid } from 'nanoid';
 
 export default function ActivityPage({
   pageType,
   step,
   points,
+  user,
   setUser,
 }: {
   pageType: string;
   step: string;
   points?: number;
+  user?: any;
   setUser?: any;
 }) {
 
@@ -31,13 +34,14 @@ export default function ActivityPage({
 
   const handleCollect = async () => {
     await createCollect({
+      user_id: user.id,
       collect_type: 'reciclagem',
       collect_type_id: 1,
-      collect_id: Math.floor(Math.random() * 1000) + 1,
-      weight: 2,
-      collect_score: 1 * 0.1,
+      collect_id: nanoid(10),
+      weight: points ? points * 0.1 : 0,
+      collect_score: points,
       collect_station: 'ecoloja pinheiros',
-      collect_station_id: 8,
+      collect_station_id: Math.floor(Math.random() * 100),
     });
   }
 

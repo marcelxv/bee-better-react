@@ -20,6 +20,7 @@ export default function UserCollectForm({
   setPoints: any;
   confirmCollect: any;
 }) {
+
   const [CEP, setCEP] = useState('');
   const [collectPoints, setCollectPoints] = useState([
     {

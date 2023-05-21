@@ -66,6 +66,7 @@ function App() {
                   pageType="reciclagem"
                   step="confirmacao"
                   points={user.points}
+                  user={user}
                   setUser={setUser}
                 />
               }
