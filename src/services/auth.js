@@ -46,3 +46,24 @@ export const getUser = async () => {
     const user = supabase.auth.user()
     return user
 }
+
+export const updatePoints = async (id, points) => {
+    console.log('id', id)
+    console.log('points', points)
+    const { data, error } = await supabase.from('users').update({ points: points }).match({ id: id })
+    if (error) {
+        return { error }
+    }
+    console.log('updated data', data)
+    return { data }
+}
+
+export const createCollect = async (collect) => {
+    console.log('collect', collect)
+    const { data, error } = await supabase.from('collects').insert({ ...collect })
+    if (error) {
+        return { error }
+    }
+    console.log('updated data', data)
+    return { data }
+}

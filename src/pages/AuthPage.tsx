@@ -3,7 +3,7 @@ import { authUser } from '../services/auth';
 import { Box, Button, Heading, Text, Input, Spinner, Toast, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
-export function AuthPage({ setUser, setIsLogged }: { setUser: any, setIsLogged: any }) {
+export function AuthPage({ setUser, setIsLogged, isLogged }: { setUser: any, setIsLogged: any, isLogged: boolean }) {
     const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +37,8 @@ export function AuthPage({ setUser, setIsLogged }: { setUser: any, setIsLogged: 
         setIsLogged(true);
         navigate('/home');
     }
+
+    if(isLogged) navigate('/home');
 
     return (
         <Box background="url('https://source.unsplash.com/1600x900?nature')" backgroundSize="cover" backgroundPosition="center" height="100vh" width="100vw" display="flex" flexDirection="column" alignItems="center" justifyContent="center" color="white">

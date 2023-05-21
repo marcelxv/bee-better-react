@@ -7,15 +7,25 @@ import NotFoundPage from './pages/NotFoundPage';
 import { ChakraProvider } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import HamburgerMenu from './components/HamburgerMenu';
-import supabase from './services/supabase';
+import { updatePoints } from './services/auth';
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState({
+  const INITIAL_STATE = {
     name: '',
     email: '',
     points: 0,
-  });
+    id: '',
+  };
+
+  const [isLogged, setIsLogged] = useState(false);
+  const [user, setUser] = useState(INITIAL_STATE);
+  
+  useEffect(() => {
+    if (user.points) {
+      updatePoints(user.id, user.points);
+    }
+  }, [user.points]);
+
 
   return (
     <>
@@ -30,7 +40,7 @@ function App() {
             />
           </>
           <Routes>
-            <Route path="/" element={<AuthPage setUser={setUser} setIsLogged={setIsLogged} />} />
+            <Route path="/" element={<AuthPage setUser={setUser} setIsLogged={setIsLogged} isLogged={isLogged} />} />
             <Route path="/home" element={<HomePage isLogged={isLogged} user={user} />} />
             <Route
               path="/activity/reciclagem"
