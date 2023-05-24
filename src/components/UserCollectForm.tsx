@@ -13,11 +13,14 @@ export default function UserCollectForm({
   step,
   points,
   setPoints,
+  confirmCollect,
 }: {
   step: string;
   points: number | undefined;
   setPoints: any;
+  confirmCollect: any;
 }) {
+
   const [CEP, setCEP] = useState('');
   const [collectPoints, setCollectPoints] = useState([
     {
@@ -94,7 +97,7 @@ export default function UserCollectForm({
   const [totalWeight, setTotalWeight] = useState(0);
 
   const handlePoints = () => {
-    const clearAllState = () => {
+      const clearAllState = () => {
       setCEP('');
       setSelectedCollectPoint({
         id: 0,
@@ -116,6 +119,7 @@ export default function UserCollectForm({
     };
     clearAllState();
     setPoints((points as any) + totalWeight);
+    confirmCollect();
   };
 
   const handleGarbageBags = (action: string) => {

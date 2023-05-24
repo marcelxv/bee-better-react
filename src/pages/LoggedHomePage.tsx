@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -11,9 +11,9 @@ import {
   Highlight,
 } from '@chakra-ui/react';
 import Navbar from '../components/NavBar';
+import { useNavigate } from 'react-router-dom';
 
-export default function HomePage() {
-  const [user, setUser] = useState({ name: 'john doe' });
+export default function HomePage({ isLogged, user }: { isLogged: boolean; user: any }) {
   const [activities, setActivity] = useState([
     {
       id: 1,
@@ -57,19 +57,27 @@ export default function HomePage() {
     },
   ]);
 
+  const navigate = useNavigate();
+
+useEffect(() => {
+  if (!isLogged) {
+    navigate('/');
+  }
+}, [isLogged, navigate]);
+
   return (
     <Box bg="gray.50" minH="100vh">
       <Navbar />
-        <Box mt="10px">
-          <Heading>olá, {user.name}!</Heading>
-          <Text mt="10px" fontSize="lg">
-            <Highlight
-              query="beecoins"
-              styles={{ px: '1', py: '1', bg: 'orange.100' }}
-            >
-              escolha uma atividade para começar a ganhar beecoins
-            </Highlight>
-          </Text>
+      <Box mt="10px">
+        <Heading>olá, {user.name}!</Heading>
+        <Text mt="10px" fontSize="lg">
+          <Highlight
+            query="beecoins"
+            styles={{ px: '1', py: '1', bg: 'orange.100' }}
+          >
+            escolha uma atividade para começar a ganhar beecoins
+          </Highlight>
+        </Text>
         <SimpleGrid columns={1} spacing={10} mt="40px">
           {activities.map((activity) => (
             <Link

@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import HomePage from '../pages/HomePage';
+import HomePage from '../pages/LoggedHomePage';
 
 describe('HomePage', () => {
     it('should render correctly', () => {

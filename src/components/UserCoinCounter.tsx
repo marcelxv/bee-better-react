@@ -2,7 +2,7 @@ import { useToast, Button } from '@chakra-ui/react';
 import { stringify } from 'querystring';
 import { useLocation } from 'react-router-dom';
 
-export default function UserCoinCounter({ points }: { points: number }) {
+export default function UserCoinCounter({ user }: { user: any }) {
   const toast = useToast();
 
   return (
@@ -11,14 +11,14 @@ export default function UserCoinCounter({ points }: { points: number }) {
         onClick={() =>
           toast({
             title: 'Seu saldo de beecoins',
-            description: `Você tem ${points} beecoins`,
+            description: `Você tem ${user.points} beecoins`,
             status: 'success',
             duration: 9000,
             isClosable: true,
           })
         }
       >
-        {useLocation().pathname === '/' ? `Saldo: ${ points }` : 'Ver saldo'}
+        {useLocation().pathname === '/' ? `Saldo: ${ user.points }` : 'Ver saldo'}
       </Button>
     </div>
   );
