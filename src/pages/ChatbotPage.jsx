@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Box, Button, Input, InputGroup, Text } from '@chakra-ui/react';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
+  Button,
+} from '@chakra-ui/react';
 import data from '../data/answers.json';
 import Navbar from '../components/NavBar';
 import ListQuestions from '../components/ListQuestions';
@@ -21,10 +29,19 @@ const Chatbot = () => {
   const [newMessage, setNewMessage] = useState('');
   const [newQuestion, setNewQuestion] = useState('');
   const [botIsTyping, setIsBotTyping] = useState(false);
+  const [featuredMessage, setFeaturedMessage] = useState('');
   const [notificationSound] = useSound(chatFX);
 
+  // setFeaturedMessage for the first 10 questions
+  const getFeaturedMessage = () => {
+    const featuredMessage = data.slice(0, 10).map((item) => item.question);
+    const otherThanFeatured = data.slice(10).map((item) => item.question);
+    setQuestions(otherThanFeatured);
+    setFeaturedMessage(featuredMessage);
+  };
+
   useEffect(() => {
-    setQuestions(getQuestions());
+    getFeaturedMessage();
     setNewMessage(newQuestion);
   }, [newQuestion]);
 
@@ -66,11 +83,6 @@ const Chatbot = () => {
     return answer || 'Desculpe, não entendi sua pergunta';
   };
 
-  const getQuestions = () => {
-    const questions = data.map((item) => item.question);
-    return questions;
-  };
-
   return (
     <>
       <Navbar />
@@ -83,7 +95,12 @@ const Chatbot = () => {
         mx="auto"
       >
         <ChatBox messages={messages} botIsTyping={botIsTyping} />
-        <ChatForm newMessage={newMessage} questions={questions} setNewMessage={setNewMessage} sendMessage={handleNewMessage} />
+        <ChatForm
+          newMessage={newMessage}
+          questions={questions}
+          setNewMessage={setNewMessage}
+          sendMessage={handleNewMessage}
+        />
         <Box h={4} />
         <Button colorScheme="red" onClick={clearMessages}>
           Limpar
@@ -94,7 +111,34 @@ const Chatbot = () => {
           gridGap={2}
           my={4}
         >
-          <ListQuestions questions={questions} setNewQuestion={setNewQuestion} />
+          <Box>
+            <h2 style={{ textAlign: 'left' }}>Principais perguntas</h2>
+            {featuredMessage && (
+              <ListQuestions
+                questions={featuredMessage}
+                setNewQuestion={setNewQuestion}
+              />
+            )}
+          </Box>
+          <Accordion allowToggle>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    Perguntas frequentes
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <ListQuestions
+                  questions={questions}
+                  setNewQuestion={setNewQuestion}
+                />
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+          <Box></Box>
         </Box>
       </Box>
     </>
