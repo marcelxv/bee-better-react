@@ -15,7 +15,7 @@
     "@types/react": "^18.0.38",
     "@types/react-dom": "^18.0.11",
     "@types/react-router-dom": "^5.3.3",
-    "axios": "^1.2.0",
+    "axios": "^1.12.0",
     "framer-motion": "^7.6.15",
     "nanoid": "^4.0.2",
     "react": "^18.2.0",
